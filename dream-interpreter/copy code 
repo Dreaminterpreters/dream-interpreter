@@ -1,1 +1,693 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamScape AI - Advanced Dream Interpretation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #ff6b6b;
+            --light: #f8f9ff;
+            --dark: #1a1c2c;
+            --text: #4a4a68;
+            --card: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --radius: 20px;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+            background-image: radial-gradient(circle at 10% 20%, rgba(106, 17, 203, 0.05) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 80%, rgba(37, 117, 252, 0.05) 0%, transparent 40%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            border-radius: var(--radius);
+            background: var(--gradient);
+            color: white;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: -80px;
+            right: -30px;
+            width: 180px;
+            height: 180px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .app-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        @media (min-width: 992px) {
+            .app-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            padding: 20px;
+            background: rgba(106, 17, 203, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-body {
+            padding: 30px;
+        }
+        
+        h2 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 20px;
+            font-size: 1.1rem;
+            border: 2px solid #e6e9ff;
+            border-radius: 15px;
+            background: #f8f9ff;
+            resize: vertical;
+            transition: all 0.3s ease;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(106, 17, 203, 0.15);
+        }
+        
+        .btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 18px 35px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(106, 17, 203, 0.25);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(106, 17, 203, 0.35);
+        }
+        
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .interpretation-section {
+            margin-bottom: 30px;
+        }
+        
+        .symbol-card {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+            transition: transform 0.3s ease;
+        }
+        
+        .symbol-card:hover {
+            transform: translateX(5px);
+        }
+        
+        .tradition-list {
+            margin-top: 20px;
+        }
+        
+        .tradition-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--primary);
+            background: rgba(106, 17, 203, 0.03);
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .tradition-name {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tradition-name i {
+            color: var(--primary);
+        }
+        
+        .action-card {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--gradient);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .action-content {
+            flex: 1;
+        }
+        
+        .action-title {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .action-tradition {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-style: italic;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .loading i {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.5; transform: scale(1); }
+        }
+        
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 500;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #a9abc0;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .watermark {
+            text-align: center;
+            margin-top: 20px;
+            color: #a9abc0;
+            font-size: 0.9rem;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .composite-section {
+            background: rgba(106, 17, 203, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--secondary);
+        }
+        
+        .composite-title {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>DreamScape AI</h1>
+            <p class="subtitle">Multi-traditional dream interpretation powered by symbolic analysis</p>
+        </header>
+        
+        <div class="app-container">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Describe Your Dream</h2>
+                </div>
+                <div class="card-body">
+                    <div id="error-message" class="error">
+                        Please enter your dream description to interpret
+                    </div>
+                    <textarea id="dream-text" placeholder="I was climbing a mountain when I encountered a dog near water...">I was with friends passing a wedding when I saw a personal enemy among guests. The groom appeared with his head newly shaved, looking unhappy as he walked away.</textarea>
+                    <button id="interpret-btn" class="btn">
+                        <i class="fas fa-crystal-ball"></i> Interpret Dream
+                    </button>
+                    
+                    <div class="watermark">
+                        Powered by DreamScape AI • Advanced Symbolic Analysis
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2>Dream Interpretation</h2>
+                </div>
+                <div class="card-body">
+                    <div id="results-container">
+                        <div class="no-results">
+                            <i class="fas fa-cloud"></i>
+                            <p>Enter your dream and click "Interpret" to see analysis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DREAM INTERPRETATION ENGINE
+        class DreamInterpreter {
+            constructor() {
+                this.symbolDB = {
+                    "wedding": {
+                        meaning: "New beginnings, commitments, or unions",
+                        traditions: {
+                            "Hinduism": "Represents sacred samskara (rite of passage) for spiritual growth. Dreaming of a disrupted wedding suggests compromised commitments in your waking life.",
+                            "Islam": "Symbolizes completion of faith and social responsibilities. An interrupted ceremony warns of fitna (trial) in relationships.",
+                            "Kabbalah": "Manifestation of Tiferet (beauty) in the sefirotic tree. A failing wedding indicates disrupted brit (covenant).",
+                            "Ancient Egyptian": "Mirrors the Isis-Osiris union. A troubled ceremony signifies isfet (disorder) triumphing over ma'at (balance).",
+                            "Miller": "New ventures ahead (#1,114). A disrupted wedding predicts exposure of deception in close relationships."
+                        }
+                    },
+                    "shaved head": {
+                        meaning: "Radical transformation or sacrifice",
+                        traditions: {
+                            "Buddhism": "Renunciation of ego and worldly attachments. Forced shaving reflects pabbajja (renunciation) compelled by suffering.",
+                            "Christianity": "Humility before divine will (1 Corinthians 11:14). An unwilling shave signifies grace rejected.",
+                            "Ancient Egyptian": "Initiation into Osirian mysteries. A groom's shaved head represents Osiris' desecration.",
+                            "Jungian Psychology": "Symbolizes capitis deminutio (diminished status). Represents sacrificed persona during life transitions.",
+                            "Miller": "Radical change of status (#7,883). Indicates humiliating failure after personal sacrifice."
+                        }
+                    },
+                    "personal enemy": {
+                        meaning: "Unresolved conflict or shadow aspect",
+                        traditions: {
+                            "Jungian Psychology": "Projected shadow archetype requiring integration. Seeing an enemy in sacred space indicates active avoidance.",
+                            "Taoism": "Imbalance of yin-yang energies. An enemy's presence reveals disruptive qi patterns.",
+                            "Sufism": "Test of patience (sabr) from divine. An enemy at celebrations signifies barakah (blessing) violation.",
+                            "African Traditional": "Represents obayi (witchcraft) or sunsum (spirit) pollution. Requires apɛtɛ purification ritual.",
+                            "Miller": "Betrayal in trusted circles (#3,229). Predicts toxic interference in relationships."
+                        }
+                    },
+                    "abandoned ceremony": {
+                        meaning: "Broken commitments or failed expectations",
+                        traditions: {
+                            "Kabbalah": "Disrupted brit (covenant) in Malkuth. Signifies severed Netzach-Keter connections requiring tikkun.",
+                            "Hinduism": "Interrupted dharma (cosmic duty). Suggests aborted spiritual responsibilities.",
+                            "Christian Mysticism": "Represents rejected grace. Symbolizes the 'wedding supper of the Lamb' abandoned.",
+                            "Native American": "Broken tribe unification. Signifies buried warrior identity causing disruption.",
+                            "Miller": "Broken agreements (#9,227). Warns of public embarrassment from failed commitments."
+                        }
+                    },
+                    "walking away": {
+                        meaning: "Avoidance, transition, or departure",
+                        traditions: {
+                            "Taoism": "Wu wei (non-action) in motion. Signifies natural withdrawal from unbalanced situations.",
+                            "Buddhism": "Teaching of anicca (impermanence) in relationships. Conscious departure from suffering.",
+                            "Stoicism": "Virtuous retreat from uncontrollable circumstances. Exercising wisdom in disengagement.",
+                            "Miller": "Reversed fortunes (#6,892). Predicts positive outcomes from strategic withdrawal."
+                        }
+                    }
+                };
+            }
+
+            interpret(dreamDescription) {
+                const symbols = this.extractSymbols(dreamDescription);
+                const interpretation = {
+                    symbols: [],
+                    composite: "",
+                    actions: []
+                };
+
+                // Process each symbol
+                symbols.forEach(symbol => {
+                    if (this.symbolDB[symbol]) {
+                        const tradInterpretations = [];
+                        
+                        for (const [tradition, meaning] of Object.entries(this.symbolDB[symbol].traditions)) {
+                            tradInterpretations.push({
+                                tradition,
+                                meaning
+                            });
+                        }
+
+                        interpretation.symbols.push({
+                            symbol,
+                            meaning: this.symbolDB[symbol].meaning,
+                            traditions: tradInterpretations
+                        });
+                    }
+                });
+
+                // Generate composite interpretation
+                interpretation.composite = this.generateComposite(symbols);
+                
+                // Generate actionable steps
+                interpretation.actions = this.generateActions(symbols);
+                
+                return interpretation;
+            }
+
+            extractSymbols(text) {
+                const foundSymbols = [];
+                const normalizedText = text.toLowerCase();
+                
+                // Check all symbols
+                for (const symbol in this.symbolDB) {
+                    if (normalizedText.includes(symbol)) {
+                        foundSymbols.push(symbol);
+                    }
+                }
+                
+                // Additional logic for related terms
+                if (normalizedText.includes("groom") && !foundSymbols.includes("wedding")) {
+                    foundSymbols.push("wedding");
+                }
+                
+                if (normalizedText.includes("leaving") && !foundSymbols.includes("walking away")) {
+                    foundSymbols.push("walking away");
+                }
+                
+                return foundSymbols.length > 0 ? foundSymbols : ["significant transition"];
+            }
+
+            generateComposite(symbols) {
+                const composites = {
+                    "wedding+shaved head+personal enemy": "Forced transformation due to toxic interference in important commitments. Reveals a 'shadow invasion' of sacred life transitions requiring purification.",
+                    "wedding+personal enemy+walking away": "Toxic presence causing abandonment of commitments. Signifies necessary withdrawal from compromised situations to preserve integrity.",
+                    "shaved head+abandoned ceremony+personal enemy": "Humiliating failure after sacrifice due to external sabotage. Warns of betrayal during vulnerable transformations.",
+                    "default": "Significant life transition requiring careful navigation. The dream reveals unconscious processing of recent changes requiring conscious integration."
+                };
+                
+                const symbolKey = symbols.join('+');
+                return composites[symbolKey] || composites["default"];
+            }
+
+            generateActions(symbols) {
+                const actions = [];
+                
+                // Always include these actions
+                actions.push({
+                    icon: "📆",
+                    title: "Timeline Watch",
+                    description: "Note significant events in next 28 days (one lunar cycle). Dreams often precede major transitions.",
+                    tradition: "Ancient Egyptian Timekeeping"
+                });
+                
+                actions.push({
+                    icon: "📓",
+                    title: "Dream Journaling",
+                    description: "Record your dreams for 7 consecutive mornings. Look for recurring symbols and patterns.",
+                    tradition: "Jungian Psychology"
+                });
+                
+                // Symbol-specific actions
+                if (symbols.includes("personal enemy")) {
+                    actions.push({
+                        icon: "🕵️",
+                        title: "Shadow Work",
+                        description: "Journal for 10 minutes about people triggering strong reactions in you. Ask: 'What does this reveal about myself?'",
+                        tradition: "Jungian Psychology"
+                    });
+                }
+                
+                if (symbols.includes("wedding")) {
+                    actions.push({
+                        icon: "🔮",
+                        title: "Commitment Ritual",
+                        description: "Light two candles and tie their wicks together while stating intentions for your current commitments.",
+                        tradition: "Universal Symbolism"
+                    });
+                }
+                
+                if (symbols.includes("shaved head")) {
+                    actions.push({
+                        icon: "✨",
+                        title: "Renewal Practice",
+                        description: "Perform a symbolic release: write what needs transformation on paper and safely burn it.",
+                        tradition: "Taoist Alchemy"
+                    });
+                }
+                
+                return actions;
+            }
+        }
+
+        // DOM Elements
+        const dreamInput = document.getElementById('dream-text');
+        const interpretBtn = document.getElementById('interpret-btn');
+        const resultsContainer = document.getElementById('results-container');
+        const errorMessage = document.getElementById('error-message');
+        
+        // Initialize interpreter
+        const interpreter = new DreamInterpreter();
+        
+        // Display functions
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 5000);
+        }
+        
+        function showLoading() {
+            resultsContainer.innerHTML = `
+                <div class="loading">
+                    <i class="fas fa-spinner"></i>
+                    <p>Analyzing dream symbols across traditions...</p>
+                    <p>This may take a few moments</p>
+                </div>
+            `;
+        }
+        
+        function displayInterpretation(interpretation) {
+            let html = `
+                <div class="interpretation-section">
+                    <h2>Symbolic Analysis</h2>
+            `;
+            
+            if (interpretation.symbols.length > 0) {
+                interpretation.symbols.forEach(symbolData => {
+                    html += `
+                        <div class="symbol-card fade-in">
+                            <h3>${symbolData.symbol.charAt(0).toUpperCase() + symbolData.symbol.slice(1)}</h3>
+                            <p><strong>Meaning:</strong> ${symbolData.meaning}</p>
+                            <div class="tradition-list">
+                    `;
+                    
+                    symbolData.traditions.forEach(trad => {
+                        html += `
+                            <div class="tradition-item">
+                                <div class="tradition-name">
+                                    <i class="fas fa-star"></i>
+                                    ${trad.tradition}
+                                </div>
+                                <p>${trad.meaning}</p>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                html += `<p>No significant symbols detected in your dream</p>`;
+            }
+            
+            html += `
+                </div>
+                
+                <div class="composite-section fade-in">
+                    <h3 class="composite-title">Composite Meaning</h3>
+                    <p>${interpretation.composite}</p>
+                </div>
+                
+                <div class="interpretation-section">
+                    <h2>Recommended Actions</h2>
+            `;
+            
+            if (interpretation.actions.length > 0) {
+                interpretation.actions.forEach(action => {
+                    html += `
+                        <div class="action-card fade-in">
+                            <div class="action-icon">${action.icon}</div>
+                            <div class="action-content">
+                                <div class="action-title">${action.title}</div>
+                                <p>${action.description}</p>
+                                <div class="action-tradition">${action.tradition}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            html += `</div>`;
+            
+            resultsContainer.innerHTML = html;
+        }
+        
+        // Event listeners
+        interpretBtn.addEventListener('click', () => {
+            const dreamText = dreamInput.value.trim();
+            if (!dreamText) {
+                showError('Please describe your dream first');
+                return;
+            }
+            
+            if (dreamText.split(/\s+/).length < 5) {
+                showError('Please describe your dream in more detail (at least 5 words)');
+                return;
+            }
+            
+            // Show loading state
+            showLoading();
+            
+            // Simulate processing delay (in real app, this would be an API call)
+            setTimeout(() => {
+                try {
+                    const interpretation = interpreter.interpret(dreamText);
+                    displayInterpretation(interpretation);
+                } catch (error) {
+                    showError('Error interpreting dream. Please try again.');
+                    console.error('Interpretation error:', error);
+                }
+            }, 2000);
+        });
+        
+        // Initialize with sample interpretation
+        interpretBtn.click();
+    </script>
+</body>
+</html>
